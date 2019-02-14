@@ -76,6 +76,8 @@ namespace Microsoft.ML.RunTests
         protected StreamWriter LogWriter;
         private protected ConsoleEnvironment _env;
         protected IHostEnvironment Env => _env;
+        private IFileHandle _fileHandle;
+        protected IFileHandle FileHandle => _fileHandle;
         protected MLContext ML;
         private bool _normal;
         private bool _passed;
@@ -99,6 +101,7 @@ namespace Microsoft.ML.RunTests
             _passed = true;
             _env = new ConsoleEnvironment(42, outWriter: LogWriter, errWriter: LogWriter)
                 .AddStandardComponents();
+            _fileHandle = _env.CreateTempFile();
             ML = new MLContext(42);
             ML.AddStandardComponents();
         }
@@ -110,6 +113,7 @@ namespace Microsoft.ML.RunTests
         {
             _env?.Dispose();
             _env = null;
+            _fileHandle.Dispose();
 
             Contracts.Assert(IsActive);
             Log("Test {0}: {1}: {2}", TestName,
