@@ -12,13 +12,14 @@ namespace Microsoft.ML.AutoML.Samples
 {
     public static class RecommendationExperiment
     {
-        private static string TrainDataPath = "<Path to your train dataset goes here>";
-        private static string TestDataPath = "<Path to your test dataset goes here>";
-        private static string ModelPath = @"<Desired model output directory goes here>\Model.zip";
-        private static string LabelColumnName = "Rating";
-        private static string UserColumnName = "UserId";
-        private static string ItemColumnName = "MovieId";
-        private static uint ExperimentTime = 60;
+        private static string Folder = @"C:\CodeHub\machinelearning\test\data";
+        private static string TrainDataPath = Path.Combine(Folder, "recommendation-ratings-train.csv");
+        private static string TestDataPath = Path.Combine(Folder, "recommendation-ratings-test.csv");
+        private static string ModelPath = Path.Combine(Folder, "Model.zip");
+        private static string LabelColumnName = "rating";
+        private static string UserColumnName = "userId";
+        private static string ItemColumnName = "movieId";
+        private static uint ExperimentTime = 60 * 3 * 3;
 
         public static void Run()
         {
